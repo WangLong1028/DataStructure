@@ -1,9 +1,5 @@
 package com.wl.array;
 
-import com.wl.utils.Comparator;
-
-import java.util.Arrays;
-
 @SuppressWarnings("unchecked")
 public class DynamicArray<E> implements IDynamicArray<E> {
 
@@ -12,9 +8,6 @@ public class DynamicArray<E> implements IDynamicArray<E> {
 
     // 数组
     private E[] array;
-
-    // 比较器
-    private Comparator<E> comparator;
 
     // 默认数组大小
     private static final int DEFAULT_ARRAY_SIZE = 10;
@@ -26,20 +19,10 @@ public class DynamicArray<E> implements IDynamicArray<E> {
     public static final int FIND_FAILURE_CODE = -1;
 
     public DynamicArray() {
-        this(null);
-    }
-
-    public DynamicArray(Comparator<E> comparator) {
-        this(DEFAULT_ARRAY_SIZE, comparator);
+        this(DEFAULT_ARRAY_SIZE);
     }
 
     public DynamicArray(int defaultArraySize) {
-        this(defaultArraySize, null);
-    }
-
-    public DynamicArray(int defaultArraySize, Comparator<E> comparator) {
-        this.comparator = comparator;
-
         this.array = (E[]) new Object[defaultArraySize];
         this.size = 0;
     }
