@@ -4,13 +4,15 @@ import com.wl.array.DynamicArray;
 import com.wl.list.DoubleLinkedList;
 import com.wl.list.LinkedList;
 import com.wl.stack.Stack;
+import com.wl.tree.AVLTree;
 import com.wl.tree.BinarySearchTree;
+import com.wl.tree.printer.InorderPrinter;
 import com.wl.tree.printer.LevelOrderPrinter;
 import com.wl.tree.printer.Printer;
 
 public class Main {
     public static void main(String[] argv){
-        testBinarySearchTree();
+        testAVLTree();
     }
 
     private static void testDynamicArray(){
@@ -77,9 +79,49 @@ public class Main {
 
     private static void testBinarySearchTree(){
         BinarySearchTree<Integer> tree = new BinarySearchTree<>();
-        Integer[] array = new Integer[]{36, 68, 26, 67, 32, 4, 34, 11, 76, 3, 41, 46, 73, 100, 96, 44, 17, 45};
+        Integer[] array = new Integer[]{27, 76, 55, 46, 93, 80};
         tree.addArray(array);
-        Printer printer = new LevelOrderPrinter(tree);
+
+        DynamicArray<Integer> traversalResult = new DynamicArray<>();
+        tree.traversal((Integer integer) -> {
+            traversalResult.add(integer);
+            return false;
+        }, BinarySearchTree.TRAVERSAL_MODE_LRD);
+
+        System.out.println();
+        System.out.println(traversalResult);
+
+        Printer printer = new InorderPrinter(tree);
+        printer.println();
+
+        System.out.println();
+        for (int i = 0; i < traversalResult.size() - 1; i++) {
+            tree.remove(traversalResult.get(i));
+        }
+        printer.println();
+    }
+
+    private static void testAVLTree(){
+        BinarySearchTree<Integer> tree = new AVLTree<>();
+        Integer[] array = new Integer[]{39, 97, 70, 47, 57, 71, 8, 14, 58, 19, 49, 30, 62, 92, 94, 72, 82, 65};
+        tree.addArray(array);
+
+        DynamicArray<Integer> traversalResult = new DynamicArray<>();
+        tree.traversal((Integer integer) -> {
+            traversalResult.add(integer);
+            return false;
+        }, BinarySearchTree.TRAVERSAL_MODE_LRD);
+
+        System.out.println();
+        System.out.println(traversalResult);
+
+        Printer printer = new InorderPrinter(tree);
+        printer.println();
+
+        System.out.println();
+        for (int i = 0; i < traversalResult.size() - 1; i++) {
+            tree.remove(traversalResult.get(i));
+        }
         printer.println();
     }
 }
